@@ -5,7 +5,7 @@ export const metadata = { title: "Politique de confidentialité" };
 export default function PolitiqueConfidentialite() {
   return (
     <Section>
-      <h1 className="text-3xl font-semibold text-slate-900">
+      <h1 className="text-4xl font-semibold tracking-tight text-text">
         Politique de confidentialité
       </h1>
 

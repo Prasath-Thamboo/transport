@@ -54,10 +54,10 @@ const SERVICES = [
 
 function BulletList({ items }: { items: string[] }) {
   return (
-    <ul className="mt-4 space-y-2 text-sm text-slate-700">
+    <ul className="mt-4 space-y-2 text-sm text-text-muted">
       {items.map((it) => (
         <li key={it} className="flex items-center gap-3">
-          <span className="h-1.5 w-1.5 rounded-full bg-slate-900" />
+          <span className="h-1.5 w-1.5 rounded-full bg-gold" />
           {it}
         </li>
       ))}
@@ -72,23 +72,25 @@ export default function ServicesPage() {
       <Section>
         <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
           <div className="lg:col-span-5">
-            <span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-700">
+            <span className="inline-flex items-center rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium text-text-muted">
               Une offre claire, pensée pour les professionnels
             </span>
 
-            <h1 className="mt-4 text-4xl font-semibold tracking-tight text-slate-900">
+            <h1 className="mt-4 text-4xl font-semibold tracking-tight text-text">
               Services de transport routier
-              <span className="block">adaptés à vos contraintes B2B</span>
+              <span className="block text-gold">adaptés à vos contraintes B2B</span>
             </h1>
 
-            <p className="mt-4 text-sm leading-6 text-slate-600">
+            <p className="mt-4 text-sm leading-6 text-text-muted">
               Lots complets ou partiels, dédié/express, affrètement : nous construisons
               une solution planifiée, suivie et conforme à vos exigences (RDV, accès, sécurité).
             </p>
 
-            <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_1px_0_rgba(15,23,42,0.04)]">
-              <div className="text-sm font-semibold text-slate-900">Ce que vous gagnez</div>
-              <BulletList items={["Interlocuteur unique", "Planning précis", "Suivi & traçabilité"]} />
+            <div className="mt-6 rounded-2xl border border-border bg-surface p-5 shadow-soft">
+              <div className="text-sm font-semibold text-text">Ce que vous gagnez</div>
+              <BulletList
+                items={["Interlocuteur unique", "Planning précis", "Suivi & traçabilité"]}
+              />
             </div>
           </div>
 
@@ -96,12 +98,16 @@ export default function ServicesPage() {
           <div className="lg:col-span-7 grid gap-4 sm:grid-cols-2">
             <Card title="FTL / LTL">
               Lots complets et partiels selon volumes, délais et contraintes de chargement.
-              <BulletList items={["Optimisation coût/délai", "Moins d’imprévus", "Livraison confirmée"]} />
+              <BulletList
+                items={["Optimisation coût/délai", "Moins d’imprévus", "Livraison confirmée"]}
+              />
             </Card>
 
             <Card title="Dédié / Express">
               Pour l’urgence ou la sensibilité : véhicule dédié et suivi prioritaire.
-              <BulletList items={["Prise en charge rapide", "Communication proactive", "Traçabilité"]} />
+              <BulletList
+                items={["Prise en charge rapide", "Communication proactive", "Traçabilité"]}
+              />
             </Card>
 
             <Card title="Affrètement">
@@ -118,12 +124,12 @@ export default function ServicesPage() {
       </Section>
 
       {/* Grille complète */}
-      <Section className="bg-slate-50 border-y border-slate-200">
+      <Section className="bg-muted border-y border-border">
         <div className="flex flex-col gap-3">
-          <h2 className="text-3xl font-semibold tracking-tight text-slate-900">
+          <h2 className="text-3xl font-semibold tracking-tight text-text">
             Détail des prestations
           </h2>
-          <p className="text-sm text-slate-600 max-w-2xl">
+          <p className="text-sm text-text-muted max-w-2xl">
             Une couverture modulable selon vos flux. Ajustez le niveau de service en fonction
             de l’urgence, des volumes et des contraintes.
           </p>

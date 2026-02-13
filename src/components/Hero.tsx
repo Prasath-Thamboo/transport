@@ -3,16 +3,22 @@ import Container from "./Container";
 import Image from "next/image";
 
 const Badge = ({ children }: { children: React.ReactNode }) => (
-  <div className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-700">
+  <div className="rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium text-text-muted">
     {children}
   </div>
 );
 
 export default function Hero() {
   return (
-    <div className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-b from-slate-50 to-white">
+    <div className="relative overflow-hidden border-b border-border bg-bg">
+      {/* Lueur premium subtile */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-40 -right-40 h-[520px] w-[520px] rounded-full bg-gold/10 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 h-[520px] w-[520px] rounded-full bg-gold/5 blur-3xl" />
+      </div>
+
       <Container>
-        <div className="py-16 sm:py-20 grid gap-10 lg:grid-cols-12 lg:items-center">
+        <div className="relative py-16 sm:py-20 grid gap-10 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-7">
             <div className="flex flex-wrap gap-2">
               <Badge>Interlocuteur unique</Badge>
@@ -21,12 +27,12 @@ export default function Hero() {
               <Badge>Assurance marchandise</Badge>
             </div>
 
-            <h1 className="mt-6 text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
+            <h1 className="mt-6 text-4xl font-semibold tracking-tight text-text">
               Transport routier de marchandises,
-              <span className="block text-slate-900">fiable et réactif.</span>
+              <span className="block text-gold">fiable et réactif.</span>
             </h1>
 
-            <p className="mt-5 text-base leading-7 text-slate-600">
+            <p className="mt-5 text-base leading-7 text-text-muted">
               Lots complets ou partiels, dédié, express : des délais tenus, une communication
               claire et une solution adaptée à vos contraintes B2B.
             </p>
@@ -34,36 +40,41 @@ export default function Hero() {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white hover:bg-slate-800 transition"
+                className="inline-flex items-center justify-center rounded-xl bg-gold px-6 py-3 text-sm font-semibold text-black hover:bg-gold-2 transition shadow-[0_10px_25px_rgba(0,0,0,0.55)]"
               >
                 Demander un devis
               </Link>
+
               <Link
                 href="/services"
-                className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 transition"
+                className="inline-flex items-center justify-center rounded-xl border border-border bg-surface px-6 py-3 text-sm font-semibold text-text hover:bg-muted transition"
               >
                 Voir nos services
               </Link>
             </div>
 
             <div className="mt-10 grid grid-cols-3 gap-4">
-              <div className="rounded-2xl border border-slate-200 bg-white p-4">
-                <div className="text-sm font-semibold text-slate-900">Ponctualité</div>
-                <div className="mt-1 text-xs text-slate-600">Planification & RDV</div>
+              <div className="rounded-2xl border border-border bg-surface p-4 shadow-soft">
+                <div className="text-sm font-semibold text-text">Ponctualité</div>
+                <div className="text-gold text-3xl">TEST GOLD</div>
+                <div className="mt-1 text-xs text-text-muted">Planification & RDV</div>
               </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-4">
-                <div className="text-sm font-semibold text-slate-900">Sécurité</div>
-                <div className="mt-1 text-xs text-slate-600">Process & conformité</div>
+              <div className="rounded-2xl border border-border bg-surface p-4 shadow-soft">
+                <div className="text-sm font-semibold text-text">Sécurité</div>
+                <div className="mt-1 text-xs text-text-muted">Process & conformité</div>
               </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-4">
-                <div className="text-sm font-semibold text-slate-900">Réactivité</div>
-                <div className="mt-1 text-xs text-slate-600">Dédié / Express</div>
+              <div className="rounded-2xl border border-border bg-surface p-4 shadow-soft">
+                <div className="text-sm font-semibold text-text">Réactivité</div>
+                <div className="mt-1 text-xs text-text-muted">Dédié / Express</div>
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-5">
-            <div className="relative rounded-3xl border border-slate-200 bg-white shadow-soft overflow-hidden transition hover:-translate-y-0.5 hover:shadow-[0_18px_50px_rgba(2,6,23,0.16)]">
+            <div className="relative rounded-3xl border border-border bg-surface shadow-soft overflow-hidden transition hover:-translate-y-0.5 hover:shadow-[0_18px_50px_rgba(0,0,0,0.65)]">
+              {/* Liseré OR subtil */}
+              <div className="pointer-events-none absolute inset-0 ring-1 ring-gold/10 rounded-3xl" />
+
               {/* Zone image : ratio stable */}
               <div className="relative aspect-[16/10] w-full">
                 <Image
@@ -75,18 +86,18 @@ export default function Hero() {
                   sizes="(min-width: 1024px) 420px, 100vw"
                 />
 
-                {/* Overlay premium (contraste + profondeur) */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/55 via-slate-950/15 to-transparent" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.18),transparent_55%)]" />
+                {/* Overlay premium (or + profondeur) */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(212,175,55,0.18),transparent_55%)]" />
 
                 {/* Badge en haut à gauche */}
                 <div className="absolute left-4 top-4">
-                  <div className="rounded-full border border-white/15 bg-black/10 px-3 py-1 text-xs font-medium text-white backdrop-blur">
+                  <div className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs font-medium text-white backdrop-blur">
                     Suivi & traçabilité
                   </div>
                 </div>
 
-                {/* Micro-infos en bas (style premium) */}
+                {/* Micro-infos en bas */}
                 <div className="absolute bottom-4 left-4 right-4">
                   <div className="grid grid-cols-3 gap-2">
                     <div className="rounded-2xl border border-white/10 bg-white/10 px-3 py-2 backdrop-blur">
@@ -107,26 +118,27 @@ export default function Hero() {
 
               {/* Zone texte sous l’image */}
               <div className="p-6">
-                <div className="text-sm font-semibold text-slate-900">Réponse rapide</div>
-                <p className="mt-2 text-sm text-slate-600">
+                <div className="text-sm font-semibold text-text">
+                  Réponse rapide <span className="text-gold">•</span> Devis sans engagement
+                </div>
+                <p className="mt-2 text-sm text-text-muted">
                   Indiquez départ/arrivée, volume, contraintes. On revient vers vous avec une solution et un planning.
                 </p>
 
                 <div className="mt-4 flex flex-wrap gap-2">
-                  <div className="rounded-xl border border-slate-200 px-3 py-2 text-xs text-slate-700">
+                  <div className="rounded-xl border border-border bg-bg px-3 py-2 text-xs text-text-muted">
                     RDV / horaires
                   </div>
-                  <div className="rounded-xl border border-slate-200 px-3 py-2 text-xs text-slate-700">
+                  <div className="rounded-xl border border-border bg-bg px-3 py-2 text-xs text-text-muted">
                     Accès / hayon
                   </div>
-                  <div className="rounded-xl border border-slate-200 px-3 py-2 text-xs text-slate-700">
+                  <div className="rounded-xl border border-border bg-bg px-3 py-2 text-xs text-text-muted">
                     Marchandise sensible
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
       </Container>
     </div>

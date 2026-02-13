@@ -5,7 +5,7 @@ export const metadata = { title: "Mentions légales" };
 export default function MentionsLegales() {
   return (
     <Section>
-      <h1 className="text-3xl font-semibold text-slate-900">Mentions légales</h1>
+      <h1 className="text-4xl font-semibold tracking-tight text-text">Mentions légales</h1>
 
       <div className="mt-8 space-y-6 text-sm leading-6 text-slate-700 max-w-3xl">
         <p>

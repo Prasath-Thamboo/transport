@@ -12,32 +12,32 @@ export default function HomePage() {
         <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
           {/* Texte de contexte */}
           <div className="lg:col-span-5">
-            <span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-700">
+            <span className="inline-flex items-center rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium text-text-muted">
               Transport routier B2B
             </span>
 
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900">
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-text">
               Une logistique fiable,
-              <span className="block">sans frictions opérationnelles</span>
+              <span className="block text-gold">sans frictions opérationnelles</span>
             </h2>
 
-            <p className="mt-4 max-w-md text-sm leading-6 text-slate-600">
+            <p className="mt-4 max-w-md text-sm leading-6 text-text-muted">
               Nous accompagnons les professionnels avec des solutions de transport claires,
               planifiées et suivies, pour garantir le respect de vos délais et engagements clients.
             </p>
 
             {/* Mini preuves */}
-            <ul className="mt-6 space-y-3 text-sm text-slate-700">
+            <ul className="mt-6 space-y-3 text-sm text-text-muted">
               <li className="flex items-center gap-3">
-                <span className="h-1.5 w-1.5 rounded-full bg-slate-900" />
+                <span className="h-1.5 w-1.5 rounded-full bg-gold" />
                 Interlocuteur unique du devis à la livraison
               </li>
               <li className="flex items-center gap-3">
-                <span className="h-1.5 w-1.5 rounded-full bg-slate-900" />
+                <span className="h-1.5 w-1.5 rounded-full bg-gold" />
                 Planification précise et gestion des contraintes
               </li>
               <li className="flex items-center gap-3">
-                <span className="h-1.5 w-1.5 rounded-full bg-slate-900" />
+                <span className="h-1.5 w-1.5 rounded-full bg-gold" />
                 Communication proactive en cas d’aléa
               </li>
             </ul>
@@ -68,18 +68,17 @@ export default function HomePage() {
         </div>
       </Section>
 
-
-      <Section className="bg-slate-50 border-y border-slate-200">
+      <Section className="bg-muted border-y border-border">
         <div className="max-w-2xl">
-          <span className="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-700">
+          <span className="inline-flex items-center rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-text-muted">
             Process simple & maîtrisé
           </span>
 
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900">
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-text">
             Comment ça marche
           </h2>
 
-          <p className="mt-3 text-sm leading-6 text-slate-600">
+          <p className="mt-3 text-sm leading-6 text-text-muted">
             Une organisation claire en trois étapes pour garantir des délais tenus
             et une communication fluide, du premier contact à la livraison.
           </p>
@@ -87,7 +86,9 @@ export default function HomePage() {
 
         <div className="relative mt-10 grid gap-4 lg:grid-cols-3">
           {/* Ligne de liaison (desktop) */}
-          
+          <div className="pointer-events-none absolute inset-x-0 top-8 hidden lg:block">
+            <div className="mx-auto h-px max-w-4xl bg-gradient-to-r from-transparent via-gold/25 to-transparent" />
+          </div>
 
           <Card title="1) Demande">
             Vous nous transmettez les informations clés : départ, arrivée, volumes
@@ -105,7 +106,6 @@ export default function HomePage() {
           </Card>
         </div>
       </Section>
-
 
       <Section>
         <CTA />

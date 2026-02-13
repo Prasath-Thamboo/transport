@@ -8,16 +8,17 @@ export default function Card({
   icon?: React.ReactNode;
 }) {
   return (
-    <div className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_1px_0_rgba(15,23,42,0.04)] hover:shadow-soft transition">
+    <div className="group rounded-2xl border border-border bg-surface p-6 shadow-soft transition hover:-translate-y-0.5 hover:shadow-[0_18px_50px_rgba(0,0,0,0.55)]">
       <div className="flex items-start gap-3">
         {icon ? (
-          <div className="rounded-xl bg-slate-900 text-white p-2 shrink-0">
+          <div className="rounded-xl bg-gold text-black p-2 shrink-0 shadow-[0_6px_18px_rgba(0,0,0,0.35)]">
             {icon}
           </div>
         ) : null}
+
         <div>
-          <h3 className="text-base font-semibold text-slate-900">{title}</h3>
-          <div className="mt-2 text-sm leading-6 text-slate-600">
+          <h3 className="text-base font-semibold text-text">{title}</h3>
+          <div className="mt-2 text-sm leading-6 text-text-muted">
             {children}
           </div>
         </div>
