@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { rateLimit } from "@/lib/rateLimit";
-import { sanitize, validate, type ContactPayload } from "@/lib/validators";
+import { sanitize, validate, type ContactPayload } from "@/lib/validator";
 import { contactEmailHtml } from "@/lib/emailTemplates";
 
 function getIP(req: Request) {

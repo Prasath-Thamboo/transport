@@ -1,4 +1,4 @@
-import { sanitize } from "@/lib/validators";
+import { sanitize } from "@/lib/validator";
 
 type Payload = {
   name: string;

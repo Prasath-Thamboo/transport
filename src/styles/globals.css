@@ -1,21 +1,59 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------ *
+ * Design system — Tailwind v4 (@theme is the source of truth)
+ * Light, modern, B2B logistics: clarity, trust, motion.
+ * ------------------------------------------------------------------ */
+@theme {
+  /* Typography */
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  /* Surfaces */
+  --color-bg: #f7f9fc;
+  --color-surface: #ffffff;
+  --color-surface-2: #f1f5f9;
+  --color-muted: #f1f5f9;
+  --color-border: #e4e9f2;
+  --color-border-strong: #cdd6e4;
+
+  /* Text */
+  --color-text: #0d1526;
+  --color-text-muted: #566173;
+
+  /* Brand — blue = action, reliability, tracking */
+  --color-brand: #2563eb;
+  --color-brand-dark: #1d4ed8;
+  --color-brand-soft: #eef4ff;
+  --color-brand-ring: #bfdbfe;
+
+  /* Accent — amber, used sparingly (one element per view) */
+  --color-accent: #f59e0b;
+  --color-accent-soft: #fff7e6;
+
+  /* Status */
+  --color-success: #059669;
+  --color-success-soft: #ecfdf5;
+  --color-danger: #e11d48;
+  --color-danger-soft: #fff1f3;
+
+  /* Radii */
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.875rem;
+  --radius-2xl: 1.125rem;
+  --radius-3xl: 1.75rem;
+
+  /* Shadows — tuned to actually read on a light ground */
+  --shadow-soft: 0 1px 2px rgba(13, 21, 38, 0.04),
+    0 12px 32px -14px rgba(13, 21, 38, 0.16);
+  --shadow-lift: 0 1px 2px rgba(13, 21, 38, 0.04),
+    0 28px 56px -20px rgba(13, 21, 38, 0.26);
+  --shadow-brand: 0 14px 30px -10px rgba(37, 99, 235, 0.45);
+}
+
 @layer base {
-  :root {
-    /* Brand */
-    --brand: 17 17 19;          /* noir graphite (ex: #111113) */
-    --gold: 212 175 55;         /* or (ex: #D4AF37) */
-    --gold-2: 240 211 132;      /* or clair (ex: #F0D384) */
-
-    /* Surfaces */
-    --bg: 10 10 11;             /* fond global (presque noir) */
-    --surface: 17 17 19;        /* cartes / blocs */
-    --muted: 24 24 27;          /* sections légèrement différentes */
-    --border: 44 44 52;         /* bordures sombres */
-
-    /* Textes */
-    --text: 244 244 245;        /* texte principal (presque blanc) */
-    --text-muted: 161 161 170;  /* texte secondaire */
+  html {
+    scroll-behavior: smooth;
   }
 
   html,
@@ -24,14 +62,197 @@
   }
 
   body {
-    background: rgb(var(--bg));
-    color: rgb(var(--text));
+    background: var(--color-bg);
+    color: var(--color-text);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.022em;
   }
 
   ::selection {
-    background: rgb(var(--gold));
-    color: #0a0a0b;
+    background: var(--color-brand);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3
+      text-sm font-semibold transition-all duration-200 disabled:opacity-60;
+  }
+
+  .btn-primary {
+    @apply bg-brand text-white shadow-brand hover:bg-brand-dark
+      hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply border border-border bg-surface text-text hover:border-border-strong
+      hover:bg-surface-2;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-2 rounded-full border border-border
+      bg-surface px-3 py-1 text-xs font-medium text-text-muted;
+  }
+
+  .badge-dot::before {
+    content: "";
+    @apply h-1.5 w-1.5 rounded-full bg-brand;
+  }
+
+  .card {
+    @apply rounded-2xl border border-border bg-surface p-6 shadow-soft;
+  }
+
+  .card-hover {
+    @apply transition-all duration-200 hover:-translate-y-1
+      hover:border-border-strong hover:shadow-lift;
+  }
+
+  .field-label {
+    @apply text-sm font-medium text-text;
+  }
+
+  .field-input {
+    @apply mt-2 w-full rounded-xl border border-border bg-surface px-4 py-3
+      text-sm text-text outline-none transition
+      placeholder:text-text-muted/60
+      focus:border-brand focus:ring-4 focus:ring-brand-ring/50;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.14em] text-brand;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Motion — scroll reveals, entrance & ambient animations
+ * ------------------------------------------------------------------ */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -22px, 0);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(37, 99, 235, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+  }
+}
+
+@layer utilities {
+  /* Scroll reveal — toggled by the <Reveal> client component */
+  .reveal {
+    opacity: 0;
+    transform: translate3d(0, var(--reveal-y, 20px), 0);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Entrance animations for above-the-fold content */
+  .animate-fade-up {
+    opacity: 0;
+    animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .animate-fade-in {
+    opacity: 0;
+    animation: fade-in 0.8s ease both;
+  }
+
+  .anim-delay-1 {
+    animation-delay: 0.08s;
+  }
+  .anim-delay-2 {
+    animation-delay: 0.16s;
+  }
+  .anim-delay-3 {
+    animation-delay: 0.24s;
+  }
+  .anim-delay-4 {
+    animation-delay: 0.32s;
+  }
+  .anim-delay-5 {
+    animation-delay: 0.4s;
+  }
+  .anim-delay-6 {
+    animation-delay: 0.48s;
+  }
+
+  .float-slow {
+    animation: float-slow 10s ease-in-out infinite;
+  }
+
+  .float-slower {
+    animation: float-slow 14s ease-in-out infinite;
+  }
+
+  .pulse-ring {
+    animation: pulse-ring 2.4s ease-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .reveal,
+  .animate-fade-up,
+  .animate-fade-in {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

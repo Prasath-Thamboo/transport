@@ -1,6 +1,7 @@
 import Section from "@/components/Section";
 import Card from "@/components/Card";
 import CTA from "@/components/CTA";
+import Reveal from "@/components/Reveal";
 
 export const metadata = { title: "Services" };
 
@@ -57,7 +58,7 @@ function BulletList({ items }: { items: string[] }) {
     <ul className="mt-4 space-y-2 text-sm text-text-muted">
       {items.map((it) => (
         <li key={it} className="flex items-center gap-3">
-          <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
           {it}
         </li>
       ))}
@@ -71,14 +72,12 @@ export default function ServicesPage() {
       {/* Intro premium */}
       <Section>
         <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
-          <div className="lg:col-span-5">
-            <span className="inline-flex items-center rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium text-text-muted">
-              Une offre claire, pensée pour les professionnels
-            </span>
+          <Reveal className="lg:col-span-5">
+            <p className="eyebrow">Une offre claire, pensée pour les professionnels</p>
 
-            <h1 className="mt-4 text-4xl font-semibold tracking-tight text-text">
+            <h1 className="mt-3 text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.08] tracking-tight text-text">
               Services de transport routier
-              <span className="block text-gold">adaptés à vos contraintes B2B</span>
+              <span className="block text-brand">adaptés à vos contraintes B2B</span>
             </h1>
 
             <p className="mt-4 text-sm leading-6 text-text-muted">
@@ -92,55 +91,65 @@ export default function ServicesPage() {
                 items={["Interlocuteur unique", "Planning précis", "Suivi & traçabilité"]}
               />
             </div>
-          </div>
+          </Reveal>
 
           {/* Cartes de synthèse */}
           <div className="lg:col-span-7 grid gap-4 sm:grid-cols-2">
-            <Card title="FTL / LTL">
-              Lots complets et partiels selon volumes, délais et contraintes de chargement.
-              <BulletList
-                items={["Optimisation coût/délai", "Moins d’imprévus", "Livraison confirmée"]}
-              />
-            </Card>
+            <Reveal delay={60}>
+              <Card title="FTL / LTL">
+                Lots complets et partiels selon volumes, délais et contraintes de chargement.
+                <BulletList
+                  items={["Optimisation coût/délai", "Moins d’imprévus", "Livraison confirmée"]}
+                />
+              </Card>
+            </Reveal>
 
-            <Card title="Dédié / Express">
-              Pour l’urgence ou la sensibilité : véhicule dédié et suivi prioritaire.
-              <BulletList
-                items={["Prise en charge rapide", "Communication proactive", "Traçabilité"]}
-              />
-            </Card>
+            <Reveal delay={140}>
+              <Card title="Dédié / Express">
+                Pour l’urgence ou la sensibilité : véhicule dédié et suivi prioritaire.
+                <BulletList
+                  items={["Prise en charge rapide", "Communication proactive", "Traçabilité"]}
+                />
+              </Card>
+            </Reveal>
 
-            <Card title="Affrètement">
-              Capacité flexible via un réseau partenaires sélectionnés et pilotés.
-              <BulletList items={["Absorption pics", "Flexibilité", "Pilotage"]} />
-            </Card>
+            <Reveal delay={220}>
+              <Card title="Affrètement">
+                Capacité flexible via un réseau partenaires sélectionnés et pilotés.
+                <BulletList items={["Absorption pics", "Flexibilité", "Pilotage"]} />
+              </Card>
+            </Reveal>
 
-            <Card title="Sur-mesure">
-              RDV, accès, horaires, procédures site : on s’adapte à votre organisation.
-              <BulletList items={["Analyse", "Planning", "Exécution"]} />
-            </Card>
+            <Reveal delay={300}>
+              <Card title="Sur-mesure">
+                RDV, accès, horaires, procédures site : on s’adapte à votre organisation.
+                <BulletList items={["Analyse", "Planning", "Exécution"]} />
+              </Card>
+            </Reveal>
           </div>
         </div>
       </Section>
 
       {/* Grille complète */}
-      <Section className="bg-muted border-y border-border">
-        <div className="flex flex-col gap-3">
-          <h2 className="text-3xl font-semibold tracking-tight text-text">
+      <Section className="border-y border-border bg-surface-2">
+        <Reveal className="flex flex-col gap-3">
+          <h2 className="text-3xl font-bold tracking-tight text-text sm:text-4xl">
             Détail des prestations
           </h2>
           <p className="text-sm text-text-muted max-w-2xl">
             Une couverture modulable selon vos flux. Ajustez le niveau de service en fonction
             de l’urgence, des volumes et des contraintes.
           </p>
-        </div>
+        </Reveal>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map((s) => (
-            <Card key={s.title} title={s.title}>
-              {s.desc}
-              <BulletList items={s.bullets} />
-            </Card>
+          {SERVICES.map((s, i) => (
+            <Reveal key={s.title} delay={(i % 3) * 90}>
+              <Card title={s.title}>
+                {s.desc}
+                <BulletList items={s.bullets} />
+              </Card>
+            </Reveal>
           ))}
         </div>
       </Section>
@@ -148,20 +157,29 @@ export default function ServicesPage() {
       {/* Réassurance */}
       <Section>
         <div className="grid gap-4 lg:grid-cols-3">
-          <Card title="Communication claire">
-            Point de contact unique et informations utiles à chaque étape.
-          </Card>
-          <Card title="Sécurité & conformité">
-            Process de transport, documentation et exigences site respectées.
-          </Card>
-          <Card title="Ponctualité">
-            Planification rigoureuse et gestion proactive des aléas.
-          </Card>
+          {[
+            {
+              title: "Communication claire",
+              body: "Point de contact unique et informations utiles à chaque étape.",
+            },
+            {
+              title: "Sécurité & conformité",
+              body: "Process de transport, documentation et exigences site respectées.",
+            },
+            {
+              title: "Ponctualité",
+              body: "Planification rigoureuse et gestion proactive des aléas.",
+            },
+          ].map((c, i) => (
+            <Reveal key={c.title} delay={i * 110}>
+              <Card title={c.title}>{c.body}</Card>
+            </Reveal>
+          ))}
         </div>
 
-        <div className="mt-10">
+        <Reveal className="mt-10" y={28}>
           <CTA />
-        </div>
+        </Reveal>
       </Section>
     </>
   );

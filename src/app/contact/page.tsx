@@ -1,5 +1,6 @@
 import Section from "@/components/Section";
 import Link from "next/link";
+import Reveal from "@/components/Reveal";
 
 export const metadata = { title: "Contact / Devis" };
 
@@ -15,28 +16,26 @@ export default function ContactPage({
     <Section>
       <div className="grid gap-10 lg:grid-cols-12">
         {/* Colonne infos */}
-        <div className="lg:col-span-5">
-          <span className="inline-flex items-center rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium text-text-muted">
-            Devis B2B • Réponse rapide
-          </span>
+        <Reveal className="lg:col-span-5">
+          <p className="eyebrow">Devis B2B • Réponse rapide</p>
 
-          <h1 className="mt-4 text-4xl font-semibold tracking-tight text-text">
+          <h1 className="mt-3 text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.08] tracking-tight text-text">
             Contact / Devis
           </h1>
 
-          <p className="mt-4 text-sm leading-6 text-text-muted max-w-md">
+          <p className="mt-4 max-w-md text-sm leading-6 text-text-muted">
             Décrivez votre besoin (départ/arrivée, volumes, contraintes). Nous vous
             répondons avec une solution claire et un planning adapté.
           </p>
 
           {/* Feedback */}
           {sent && (
-            <div className="mt-6 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-sm text-emerald-300">
+            <div className="mt-6 rounded-2xl border border-success/30 bg-success-soft p-4 text-sm font-medium text-success">
               Demande envoyée. Nous revenons vers vous au plus vite.
             </div>
           )}
           {error && (
-            <div className="mt-6 rounded-2xl border border-rose-500/30 bg-rose-500/10 p-4 text-sm text-rose-300">
+            <div className="mt-6 rounded-2xl border border-danger/30 bg-danger-soft p-4 text-sm font-medium text-danger">
               Une erreur est survenue. Veuillez réessayer ou nous appeler.
             </div>
           )}
@@ -45,10 +44,10 @@ export default function ContactPage({
           <div className="mt-8 rounded-2xl border border-border bg-surface p-6 shadow-soft">
             <div className="text-sm font-semibold text-text">Coordonnées</div>
             <div className="mt-3 space-y-2 text-sm text-text-muted">
-              <a className="block hover:text-gold transition" href="tel:+33123456789">
+              <a className="block transition-colors hover:text-brand" href="tel:+33123456789">
                 +33 1 23 45 67 89
               </a>
-              <a className="block hover:text-gold transition" href="mailto:contact@exemple.fr">
+              <a className="block transition-colors hover:text-brand" href="mailto:contact@exemple.fr">
                 contact@exemple.fr
               </a>
               <div>Lun–Ven : 8h30–18h</div>
@@ -57,14 +56,14 @@ export default function ContactPage({
 
             {/* Réassurance */}
             <div className="mt-6 grid gap-3">
-              <div className="rounded-xl border border-border bg-muted px-4 py-3">
+              <div className="rounded-xl border border-border bg-surface-2 px-4 py-3">
                 <div className="text-xs font-semibold text-text">Ce que vous recevez</div>
                 <div className="mt-1 text-xs text-text-muted">
                   Une proposition claire : solution, planning, prix et conditions.
                 </div>
               </div>
 
-              <div className="rounded-xl border border-border bg-muted px-4 py-3">
+              <div className="rounded-xl border border-border bg-surface-2 px-4 py-3">
                 <div className="text-xs font-semibold text-text">Confidentialité</div>
                 <div className="mt-1 text-xs text-text-muted">
                   Données utilisées uniquement pour répondre à votre demande.
@@ -74,17 +73,17 @@ export default function ContactPage({
 
             <p className="mt-4 text-xs text-text-muted">
               Pour en savoir plus :{" "}
-              <Link className="underline hover:text-gold" href="/politique-confidentialite">
+              <Link className="font-medium text-brand underline underline-offset-2" href="/politique-confidentialite">
                 politique de confidentialité
               </Link>.
             </p>
           </div>
-        </div>
+        </Reveal>
 
         {/* Formulaire */}
-        <div className="lg:col-span-7">
+        <Reveal className="lg:col-span-7" delay={120}>
           <form
-            className="rounded-3xl border border-border bg-surface p-6 sm:p-8 shadow-soft"
+            className="rounded-3xl border border-border bg-surface p-6 shadow-soft sm:p-8"
             action="/api/contact"
             method="post"
           >
@@ -99,44 +98,40 @@ export default function ContactPage({
                 { label: "Téléphone", name: "phone", auto: "tel" },
               ].map((field) => (
                 <div key={field.name}>
-                  <label className="text-sm font-medium text-text-muted">{field.label}</label>
+                  <label className="field-label">{field.label}</label>
                   <input
                     type={field.type || "text"}
                     name={field.name}
                     required={field.required}
                     autoComplete={field.auto}
-                    className="mt-2 w-full rounded-xl border border-border bg-bg px-4 py-3 text-sm text-text outline-none focus:border-gold focus:ring-1 focus:ring-gold"
+                    className="field-input"
                   />
                 </div>
               ))}
 
               <div>
-                <label className="text-sm font-medium text-text-muted">CP départ</label>
+                <label className="field-label">CP départ</label>
                 <input
                   name="fromZip"
                   inputMode="numeric"
                   placeholder="ex: 69000"
-                  className="mt-2 w-full rounded-xl border border-border bg-bg px-4 py-3 text-sm text-text outline-none focus:border-gold focus:ring-1 focus:ring-gold"
+                  className="field-input"
                 />
               </div>
 
               <div>
-                <label className="text-sm font-medium text-text-muted">CP arrivée</label>
+                <label className="field-label">CP arrivée</label>
                 <input
                   name="toZip"
                   inputMode="numeric"
                   placeholder="ex: 75000"
-                  className="mt-2 w-full rounded-xl border border-border bg-bg px-4 py-3 text-sm text-text outline-none focus:border-gold focus:ring-1 focus:ring-gold"
+                  className="field-input"
                 />
               </div>
 
               <div>
-                <label className="text-sm font-medium text-text-muted">Type</label>
-                <select
-                  name="type"
-                  defaultValue="FTL"
-                  className="mt-2 w-full rounded-xl border border-border bg-bg px-4 py-3 text-sm text-text outline-none focus:border-gold focus:ring-1 focus:ring-gold"
-                >
+                <label className="field-label">Type</label>
+                <select name="type" defaultValue="FTL" className="field-input">
                   <option value="FTL">Lot complet (FTL)</option>
                   <option value="LTL">Lot partiel (LTL)</option>
                   <option value="EXPRESS">Dédié / Express</option>
@@ -146,30 +141,30 @@ export default function ContactPage({
               </div>
 
               <div>
-                <label className="text-sm font-medium text-text-muted">Poids / Volume</label>
+                <label className="field-label">Poids / Volume</label>
                 <input
                   name="load"
                   placeholder="ex: 800kg / 6 palettes"
-                  className="mt-2 w-full rounded-xl border border-border bg-bg px-4 py-3 text-sm text-text outline-none focus:border-gold focus:ring-1 focus:ring-gold"
+                  className="field-input"
                 />
               </div>
 
               <div className="sm:col-span-2">
-                <label className="text-sm font-medium text-text-muted">Message *</label>
+                <label className="field-label">Message *</label>
                 <textarea
                   name="message"
                   required
                   rows={7}
-                  className="mt-2 w-full rounded-xl border border-border bg-bg px-4 py-3 text-sm text-text outline-none focus:border-gold focus:ring-1 focus:ring-gold"
+                  className="field-input"
                 />
               </div>
 
               <div className="sm:col-span-2">
                 <label className="flex items-start gap-3 text-sm text-text-muted">
-                  <input type="checkbox" name="consent" required className="mt-1 accent-[rgb(var(--gold))]" />
+                  <input type="checkbox" name="consent" required className="mt-1 h-4 w-4 accent-brand" />
                   <span>
                     J’accepte que mes informations soient utilisées pour être recontacté.
-                    <Link className="underline hover:text-gold ml-1" href="/politique-confidentialite">
+                    <Link className="ml-1 font-medium text-brand underline underline-offset-2" href="/politique-confidentialite">
                       En savoir plus
                     </Link>
                   </span>
@@ -177,10 +172,7 @@ export default function ContactPage({
               </div>
             </div>
 
-            <button
-              className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-gold px-6 py-3 text-sm font-semibold text-black hover:bg-gold-2 transition"
-              type="submit"
-            >
+            <button className="btn btn-primary mt-6 w-full" type="submit">
               Envoyer la demande
             </button>
 
@@ -188,7 +180,7 @@ export default function ContactPage({
               Aucune utilisation commerciale. Données utilisées uniquement pour répondre à votre demande.
             </p>
           </form>
-        </div>
+        </Reveal>
       </div>
     </Section>
   );

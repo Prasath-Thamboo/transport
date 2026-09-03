@@ -1,15 +1,16 @@
 import Section from "@/components/Section";
+import Reveal from "@/components/Reveal";
 
 export const metadata = { title: "Politique de confidentialité" };
 
 export default function PolitiqueConfidentialite() {
   return (
     <Section>
-      <h1 className="text-4xl font-semibold tracking-tight text-text">
+      <Reveal as="h1" className="text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.08] tracking-tight text-text">
         Politique de confidentialité
-      </h1>
+      </Reveal>
 
-      <div className="mt-8 space-y-6 text-sm leading-6 text-slate-700 max-w-3xl">
+      <Reveal delay={100} className="mt-8 space-y-6 text-sm leading-6 text-text-muted max-w-3xl">
         <p>
           La présente politique de confidentialité décrit la manière dont
           <strong> [Nom de l’entreprise]</strong> collecte, utilise et protège les
@@ -17,7 +18,7 @@ export default function PolitiqueConfidentialite() {
         </p>
 
         <div>
-          <h2 className="text-base font-semibold text-slate-900">
+          <h2 className="text-base font-semibold text-text">
             Données collectées
           </h2>
           <p>
@@ -34,7 +35,7 @@ export default function PolitiqueConfidentialite() {
         </div>
 
         <div>
-          <h2 className="text-base font-semibold text-slate-900">
+          <h2 className="text-base font-semibold text-text">
             Finalité du traitement
           </h2>
           <p>
@@ -47,7 +48,7 @@ export default function PolitiqueConfidentialite() {
         </div>
 
         <div>
-          <h2 className="text-base font-semibold text-slate-900">
+          <h2 className="text-base font-semibold text-text">
             Base légale du traitement
           </h2>
           <p>
@@ -57,7 +58,7 @@ export default function PolitiqueConfidentialite() {
         </div>
 
         <div>
-          <h2 className="text-base font-semibold text-slate-900">
+          <h2 className="text-base font-semibold text-text">
             Durée de conservation
           </h2>
           <p>
@@ -68,7 +69,7 @@ export default function PolitiqueConfidentialite() {
         </div>
 
         <div>
-          <h2 className="text-base font-semibold text-slate-900">
+          <h2 className="text-base font-semibold text-text">
             Destinataires des données
           </h2>
           <p>
@@ -79,7 +80,7 @@ export default function PolitiqueConfidentialite() {
         </div>
 
         <div>
-          <h2 className="text-base font-semibold text-slate-900">
+          <h2 className="text-base font-semibold text-text">
             Droits des utilisateurs
           </h2>
           <p>
@@ -94,7 +95,7 @@ export default function PolitiqueConfidentialite() {
         </div>
 
         <div>
-          <h2 className="text-base font-semibold text-slate-900">
+          <h2 className="text-base font-semibold text-text">
             Sécurité des données
           </h2>
           <p>
@@ -105,7 +106,7 @@ export default function PolitiqueConfidentialite() {
         </div>
 
         <div>
-          <h2 className="text-base font-semibold text-slate-900">
+          <h2 className="text-base font-semibold text-text">
             Modification de la politique
           </h2>
           <p>
@@ -113,7 +114,7 @@ export default function PolitiqueConfidentialite() {
             moment afin de rester conforme à la réglementation en vigueur.
           </p>
         </div>
-      </div>
+      </Reveal>
     </Section>
   );
 }
