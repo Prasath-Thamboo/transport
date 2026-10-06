@@ -1,48 +1,66 @@
 import Link from "next/link";
+import { ArrowRight, Phone } from "@phosphor-icons/react/ssr";
+import Container from "./Container";
+import Reveal from "./Reveal";
+import { COMPANY } from "@/lib/company";
 
-export default function CTA() {
+/** Bandeau de conversion final, commun à toutes les pages. */
+export default function CTA({
+  title = "Un transport à organiser ?",
+  className = "",
+}: {
+  title?: string;
+  className?: string;
+}) {
   return (
-    <div className="relative overflow-hidden rounded-3xl bg-brand px-6 py-10 shadow-brand sm:px-10 sm:py-12">
-      {/* Décor lumineux */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/15 blur-3xl" />
-        <div className="absolute -bottom-28 -left-24 h-72 w-72 rounded-full bg-brand-dark/50 blur-3xl" />
-      </div>
+    <section className={`pb-20 sm:pb-28 ${className}`}>
+      <Container>
+        <Reveal y={28}>
+          <div className="relative overflow-hidden rounded-2xl bg-accent px-6 py-14 text-on-accent sm:px-12 sm:py-16 lg:px-16">
+            {/* Bandes de signalisation, en filigrane */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/3 opacity-[0.12] lg:block"
+              style={{
+                backgroundImage:
+                  "repeating-linear-gradient(-45deg, currentColor 0 22px, transparent 22px 44px)",
+              }}
+            />
 
-      <div className="relative flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
-        <div className="max-w-xl">
-          <span className="inline-flex items-center rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-medium text-white">
-            Réponse rapide • Devis sans engagement
-          </span>
+            <div className="relative grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-end">
+              <div>
+                <h2 className="display text-[clamp(2rem,3.6vw,3rem)]">{title}</h2>
+                <p className="mt-5 max-w-[52ch] text-base leading-relaxed opacity-90">
+                  Indiquez le départ, l&apos;arrivée et le volume. Vous recevez une
+                  proposition chiffrée et un planning sous 2 heures ouvrées.
+                </p>
+              </div>
 
-          <h3 className="mt-4 text-2xl font-bold tracking-tight text-white sm:text-3xl">
-            Un transport à organiser ?
-          </h3>
-
-          <p className="mt-3 text-sm leading-6 text-white/80">
-            Décrivez votre besoin (départ, arrivée, volumes, contraintes). Nous
-            vous proposons une solution claire, planifiée et adaptée à vos
-            exigences professionnelles.
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <Link
-            href="/contact"
-            className="btn bg-white text-brand hover:-translate-y-0.5 hover:bg-white/90"
-          >
-            Demander un devis
-            <span aria-hidden>→</span>
-          </Link>
-
-          <a
-            href="tel:+33123456789"
-            className="btn border border-white/30 text-white hover:bg-white/10"
-          >
-            Appeler directement
-          </a>
-        </div>
-      </div>
-    </div>
+              <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
+                <Link
+                  href="/contact"
+                  className="btn group bg-on-accent px-6 py-3.5 text-accent-ink hover:opacity-90"
+                >
+                  Demander un devis
+                  <ArrowRight
+                    size={16}
+                    weight="bold"
+                    className="transition-transform duration-200 group-hover:translate-x-1"
+                    aria-hidden
+                  />
+                </Link>
+                <a
+                  href={COMPANY.phoneHref}
+                  className="btn border border-current/40 px-6 py-3.5 tabular-nums hover:bg-on-accent/10"
+                >
+                  <Phone size={16} weight="bold" aria-hidden />
+                  {COMPANY.phone}
+                </a>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </Container>
+    </section>
   );
 }

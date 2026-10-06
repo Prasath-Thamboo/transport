@@ -35,8 +35,9 @@ export default function Reveal({
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (prefersReduced || typeof IntersectionObserver === "undefined") {
-      setShown(true);
-      return;
+      // Affiché à la frame suivante (pas de setState synchrone dans l'effet).
+      const id = requestAnimationFrame(() => setShown(true));
+      return () => cancelAnimationFrame(id);
     }
 
     const io = new IntersectionObserver(

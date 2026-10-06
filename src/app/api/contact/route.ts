@@ -53,13 +53,19 @@ export async function POST(req: Request) {
       return NextResponse.redirect(new URL("/contact?error=1", req.url), { status: 303 });
     }
 
+    // Mode démo : sans clé Resend configurée, on simule un envoi réussi.
+    if (!process.env.RESEND_API_KEY) {
+      console.warn("[contact] RESEND_API_KEY absente : envoi simulé (mode démo).");
+      return NextResponse.redirect(new URL("/contact?sent=1", req.url), { status: 303 });
+    }
+
     // Email
     const resend = new Resend(env("RESEND_API_KEY"));
     const to = env("CONTACT_TO");
     const cc = process.env.CONTACT_CC ? [process.env.CONTACT_CC] : undefined;
     const from = env("CONTACT_FROM");
 
-    const subject = `Demande via site – ${sanitize(payload.name)}${
+    const subject = `Demande via le site : ${sanitize(payload.name)}${
       payload.company ? ` (${sanitize(payload.company)})` : ""
     }`;
 
@@ -77,7 +83,7 @@ export async function POST(req: Request) {
 
     const replyTo = sanitize(payload.email);
 
-    await resend.emails.send({
+    const { error } = await resend.emails.send({
       from,
       to,
       cc,
@@ -85,9 +91,11 @@ export async function POST(req: Request) {
       subject,
       html,
     });
+    if (error) throw new Error(`Resend: ${error.message}`);
 
     return NextResponse.redirect(new URL("/contact?sent=1", req.url), { status: 303 });
-  } catch {
+  } catch (err) {
+    console.error("[contact] Échec de l'envoi :", err);
     return NextResponse.redirect(new URL("/contact?error=1", req.url), { status: 303 });
   }
 }

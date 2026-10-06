@@ -1,118 +1,169 @@
+import Image from "next/image";
+import { CheckCircle } from "@phosphor-icons/react/ssr";
 import Section from "@/components/Section";
-import Card from "@/components/Card";
+import Container from "@/components/Container";
 import CTA from "@/components/CTA";
 import Reveal from "@/components/Reveal";
 
-export const metadata = { title: "Flotte & moyens" };
+export const metadata = { title: "Flotte et moyens" };
 
-const SYNTHESE = [
+// Composition de la flotte de démonstration (fictive). Capacités = standards du marché.
+const FLEET = [
   {
-    title: "Types de véhicules",
-    body: "Porteurs et semi-remorques adaptés aux flux professionnels (tautliner, plateau, autres selon besoin).",
+    name: "Semi-remorque tautliner",
+    count: 22,
+    pallets: 33,
+    specs: [
+      ["Charge utile", "24 t"],
+      ["Longueur utile", "13,6 m"],
+      ["Usage", "Lots complets, longue distance"],
+    ],
   },
   {
-    title: "Capacités",
-    body: "Gestion des volumes, palettes et contraintes de chargement selon vos marchandises et délais.",
+    name: "Porteur 19 t",
+    count: 10,
+    pallets: 18,
+    specs: [
+      ["Charge utile", "9 t"],
+      ["Équipement", "Hayon 1,5 t"],
+      ["Usage", "Groupage, livraisons urbaines"],
+    ],
   },
   {
-    title: "Sécurité",
-    body: "Procédures d’arrimage, contrôles avant départ et respect des consignes spécifiques site.",
+    name: "Porteur frigorifique",
+    count: 6,
+    pallets: 16,
+    specs: [
+      ["Charge utile", "7,5 t"],
+      ["Température", "-25 °C à +25 °C"],
+      ["Usage", "Agroalimentaire, santé"],
+    ],
   },
   {
-    title: "Traçabilité",
-    body: "Suivi des transports, points de passage et confirmations de livraison.",
+    name: "Utilitaire 20 m³",
+    count: 8,
+    pallets: 6,
+    specs: [
+      ["Charge utile", "1 t"],
+      ["Équipement", "Hayon, sangles"],
+      ["Usage", "Express, centre-ville"],
+    ],
   },
 ];
 
-const REASSURANCE = [
-  {
-    title: "Assurance marchandises",
-    body: "Couverture adaptée aux marchandises transportées (niveau communiqué sur demande).",
-  },
-  {
-    title: "Qualité de service",
-    body: "Ponctualité, communication proactive et gestion anticipée des aléas.",
-  },
-  {
-    title: "Conformité réglementaire",
-    body: "Respect des règles de transport routier et des exigences professionnelles.",
-  },
+const SAFETY = [
+  "Entretien préventif réalisé dans notre atelier de Rungis",
+  "Contrôle du véhicule et de l'arrimage avant chaque départ",
+  "Conducteurs salariés, formés FIMO, FCO et ADR",
+  "Tracteurs aux normes Euro VI, renouvelés tous les 5 ans",
 ];
 
 export default function FlottePage() {
   return (
     <>
-      {/* Intro */}
-      <Section>
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
-          <Reveal className="lg:col-span-5">
-            <p className="eyebrow">Moyens maîtrisés &amp; conformes</p>
+      {/* En-tête : image à gauche, texte à droite */}
+      <section className="pt-10 sm:pt-14">
+        <Container>
+          <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+            <Reveal className="relative order-last aspect-[4/3] overflow-hidden rounded-2xl lg:order-first lg:aspect-[1/1]">
+              <Image
+                src="/images/remorque-crepuscule.jpg"
+                alt="Semi-remorque en mouvement sur une route au crépuscule"
+                fill
+                priority
+                sizes="(min-width: 1024px) 45vw, 100vw"
+                className="object-cover"
+              />
+            </Reveal>
 
-            <h1 className="mt-3 text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.08] tracking-tight text-text">
-              Flotte &amp; moyens
-              <span className="block text-brand">au service de vos flux B2B</span>
-            </h1>
-
-            <p className="mt-4 max-w-md text-sm leading-6 text-text-muted">
-              Une flotte adaptée aux contraintes professionnelles et des process
-              éprouvés pour garantir sécurité, ponctualité et traçabilité.
-            </p>
-
-            {/* Preuves */}
-            <ul className="mt-6 space-y-3 text-sm text-text-muted">
-              {[
-                "Véhicules entretenus et contrôlés régulièrement",
-                "Conducteurs formés aux exigences clients",
-                "Respect des procédures de sécurité et de conformité",
-              ].map((t) => (
-                <li key={t} className="flex items-center gap-3">
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-
-          {/* Cartes synthèse */}
-          <div className="lg:col-span-7 grid gap-4 sm:grid-cols-2">
-            {SYNTHESE.map((c, i) => (
-              <Reveal key={c.title} delay={60 + i * 90}>
-                <Card title={c.title}>{c.body}</Card>
-              </Reveal>
-            ))}
+            <Reveal delay={100}>
+              <p className="eyebrow">Flotte et moyens</p>
+              <h1 className="display mt-5 text-[clamp(2.4rem,4vw,3.25rem)] text-text">
+                46 véhicules, entretenus chez nous.
+              </h1>
+              <p className="mt-6 max-w-[48ch] text-lg leading-relaxed text-text-muted">
+                Des semi-remorques aux utilitaires, chaque envoi part dans le véhicule
+                adapté à son volume et à ses contraintes.
+              </p>
+            </Reveal>
           </div>
-        </div>
-      </Section>
+        </Container>
+      </section>
 
-      {/* Détails & réassurance */}
-      <Section className="border-y border-border bg-surface-2">
+      {/* Composition de la flotte */}
+      <Section>
         <Reveal>
-          <h2 className="text-3xl font-bold tracking-tight text-text sm:text-4xl">
-            Sécurité, conformité et fiabilité
+          <h2 className="display max-w-[20ch] text-[clamp(2rem,3.6vw,3rem)] text-text">
+            Quatre types de véhicules.
           </h2>
-
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-text-muted">
-            Au-delà des véhicules, nous mettons en œuvre des procédures claires
-            pour garantir la protection des marchandises et le respect des
-            engagements clients.
-          </p>
         </Reveal>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {REASSURANCE.map((c, i) => (
-            <Reveal key={c.title} delay={i * 110}>
-              <Card title={c.title}>{c.body}</Card>
+        <div className="mt-12 grid gap-4 md:grid-cols-2">
+          {FLEET.map((v, i) => (
+            <Reveal
+              key={v.name}
+              delay={(i % 2) * 100}
+              className="rounded-2xl border border-border bg-surface p-7 transition-shadow duration-300 hover:shadow-soft sm:p-9"
+            >
+              <div className="flex items-start justify-between gap-6">
+                <h3 className="text-xl font-semibold text-text [font-stretch:112%]">{v.name}</h3>
+                <span className="shrink-0 rounded-full bg-accent-soft px-3 py-1 text-xs font-semibold tabular-nums text-accent-ink">
+                  {v.count} en service
+                </span>
+              </div>
+
+              <p className="mt-8 flex items-baseline gap-2">
+                <span className="display text-6xl tabular-nums text-text">{v.pallets}</span>
+                <span className="text-sm text-text-muted">palettes europe</span>
+              </p>
+
+              <dl className="mt-8 grid gap-3 border-t border-border pt-6 text-sm">
+                {v.specs.map(([k, val]) => (
+                  <div key={k} className="flex justify-between gap-4">
+                    <dt className="text-text-muted">{k}</dt>
+                    <dd className="text-right font-medium text-text">{val}</dd>
+                  </div>
+                ))}
+              </dl>
             </Reveal>
           ))}
         </div>
       </Section>
 
-      {/* CTA */}
-      <Section>
-        <Reveal y={28}>
-          <CTA />
-        </Reveal>
+      {/* Sécurité : texte + image */}
+      <Section className="border-t border-border bg-surface">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+          <Reveal>
+            <h2 className="display text-[clamp(2rem,3.6vw,3rem)] text-text">
+              Sécurité et conformité.
+            </h2>
+            <p className="mt-5 max-w-[50ch] text-base leading-relaxed text-text-muted">
+              Une marchandise bien arrimée, un véhicule contrôlé et un conducteur
+              formé : c&apos;est la condition d&apos;une livraison à l&apos;heure.
+            </p>
+            <ul className="mt-8 space-y-4">
+              {SAFETY.map((s) => (
+                <li key={s} className="flex gap-3 text-sm leading-relaxed text-text">
+                  <CheckCircle size={20} weight="fill" className="mt-0.5 shrink-0 text-accent" aria-hidden />
+                  {s}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+
+          <Reveal delay={120} className="relative aspect-[4/5] overflow-hidden rounded-2xl sm:aspect-[4/3] lg:aspect-[4/5]">
+            <Image
+              src="/images/camion-brouillard.jpg"
+              alt="Porteur roulant dans le brouillard, feux arrière allumés"
+              fill
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              className="object-cover"
+            />
+          </Reveal>
+        </div>
       </Section>
+
+      <CTA className="pt-20 sm:pt-28" />
     </>
   );
 }

@@ -2,12 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { List, Phone, X } from "@phosphor-icons/react";
 import Container from "./Container";
-
-function cx(...classes: Array<string | false | undefined | null>) {
-  return classes.filter(Boolean).join(" ");
-}
+import Logo from "./Logo";
+import { COMPANY } from "@/lib/company";
 
 const NAV = [
   { href: "/services", label: "Services" },
@@ -17,138 +16,97 @@ const NAV = [
 
 export default function Header() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
+  // Le menu mobile mémorise la page sur laquelle il a été ouvert :
+  // il se referme automatiquement dès que l'on change de page.
+  const [openOn, setOpenOn] = useState<string | null>(null);
+  const open = openOn === pathname;
 
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
-  const isActive = (href: string) =>
-    pathname === href || (href !== "/" && pathname?.startsWith(href));
+  const isActive = (href: string) => pathname === href || pathname?.startsWith(`${href}/`);
 
   return (
-    <header className="animate-fade-in sticky top-0 z-50 border-b border-border bg-bg/80 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-border/70 bg-bg/85 backdrop-blur-md">
       <Container>
-        <div className="flex h-16 items-center justify-between gap-4">
-          {/* Brand */}
-          <Link href="/" className="group flex items-center gap-3">
-            <div className="grid h-10 w-10 place-items-center rounded-xl bg-brand text-white shadow-brand transition-transform group-hover:-translate-y-0.5">
-              <span className="text-sm font-bold tracking-tight">VT</span>
-            </div>
+        <div className="flex h-16 items-center justify-between gap-6">
+          <Logo />
 
-            <div className="leading-tight">
-              <div className="text-sm font-semibold text-text">
-                Votre Transporteur
-              </div>
-              <div className="text-xs text-text-muted">Transport routier B2B</div>
-            </div>
-          </Link>
-
-          {/* Desktop nav */}
-          <nav className="hidden items-center gap-1 md:flex">
+          <nav className="hidden items-center gap-8 md:flex" aria-label="Navigation principale">
             {NAV.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={cx(
-                  "relative rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                  "after:absolute after:inset-x-3 after:bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-brand after:transition-transform after:duration-300 hover:after:scale-x-100",
+                aria-current={isActive(item.href) ? "page" : undefined}
+                className={`relative text-sm font-medium transition-colors after:absolute after:inset-x-0 after:-bottom-[21px] after:h-0.5 after:origin-left after:bg-accent after:transition-transform after:duration-300 ${
                   isActive(item.href)
-                    ? "bg-brand-soft text-brand after:scale-x-0"
-                    : "text-text-muted hover:bg-surface-2 hover:text-text"
-                )}
+                    ? "text-text after:scale-x-100"
+                    : "text-text-muted after:scale-x-0 hover:text-text"
+                }`}
               >
                 {item.label}
               </Link>
             ))}
           </nav>
 
-          {/* Actions */}
           <div className="flex items-center gap-2">
             <a
-              href="tel:+33123456789"
-              className="hidden items-center text-sm font-semibold text-text-muted transition-colors hover:text-brand sm:inline-flex"
+              href={COMPANY.phoneHref}
+              className="hidden items-center gap-2 px-2 text-sm font-semibold text-text tabular-nums transition-colors hover:text-accent-ink lg:inline-flex"
             >
-              +33 1 23 45 67 89
+              <Phone size={16} weight="bold" aria-hidden />
+              {COMPANY.phone}
             </a>
 
-            <Link href="/contact" className="btn btn-primary px-4 py-2">
+            <Link href="/contact" className="btn btn-primary hidden px-4 py-2.5 sm:inline-flex">
               Demander un devis
             </Link>
 
-            {/* Mobile menu button */}
             <button
               type="button"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-surface transition-colors hover:bg-surface-2 md:hidden"
-              aria-label="Ouvrir le menu"
+              className="grid h-10 w-10 place-items-center rounded-full border border-border-strong text-text md:hidden"
+              aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
               aria-expanded={open}
-              onClick={() => setOpen((v) => !v)}
+              aria-controls="menu-mobile"
+              onClick={() => setOpenOn(open ? null : pathname)}
             >
-              <span className="sr-only">Menu</span>
-              <div className="grid gap-1">
-                <span
-                  className={cx(
-                    "h-0.5 w-5 bg-text transition",
-                    open && "translate-y-1.5 rotate-45"
-                  )}
-                />
-                <span
-                  className={cx(
-                    "h-0.5 w-5 bg-text transition",
-                    open && "opacity-0"
-                  )}
-                />
-                <span
-                  className={cx(
-                    "h-0.5 w-5 bg-text transition",
-                    open && "-translate-y-1.5 -rotate-45"
-                  )}
-                />
-              </div>
+              {open ? <X size={18} weight="bold" /> : <List size={18} weight="bold" />}
             </button>
           </div>
         </div>
+      </Container>
 
-        {/* Mobile panel */}
-        <div
-          className={cx(
-            "overflow-hidden transition-[max-height] duration-300 md:hidden",
-            open ? "max-h-96" : "max-h-0"
-          )}
-        >
-          <div className="pb-4">
-            <div className="mt-1 rounded-2xl border border-border bg-surface p-2 shadow-soft">
+      {/* Menu mobile */}
+      <div
+        id="menu-mobile"
+        className={`grid transition-[grid-template-rows] duration-300 md:hidden ${
+          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <Container>
+            <nav className="flex flex-col py-4" aria-label="Navigation mobile">
               {NAV.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={cx(
-                    "flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition-colors",
-                    isActive(item.href)
-                      ? "bg-brand-soft text-brand"
-                      : "text-text-muted hover:bg-surface-2 hover:text-text"
-                  )}
+                  className={`border-b border-border py-4 text-lg font-semibold [font-stretch:112%] ${
+                    isActive(item.href) ? "text-accent-ink" : "text-text"
+                  }`}
                 >
                   {item.label}
-                  <span aria-hidden>→</span>
                 </Link>
               ))}
-
-              <div className="mt-2 grid gap-2 px-2 pb-2">
-                <a
-                  href="tel:+33123456789"
-                  className="btn btn-secondary"
-                >
-                  Appeler
-                </a>
+              <div className="mt-5 grid gap-3 pb-2">
                 <Link href="/contact" className="btn btn-primary">
                   Demander un devis
                 </Link>
+                <a href={COMPANY.phoneHref} className="btn btn-secondary">
+                  <Phone size={16} weight="bold" aria-hidden />
+                  {COMPANY.phone}
+                </a>
               </div>
-            </div>
-          </div>
+            </nav>
+          </Container>
         </div>
-      </Container>
+      </div>
     </header>
   );
 }

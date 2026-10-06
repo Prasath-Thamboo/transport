@@ -3,12 +3,14 @@ import Container from "./Container";
 export default function Section({
   children,
   className = "",
+  id,
 }: {
   children: React.ReactNode;
   className?: string;
+  id?: string;
 }) {
   return (
-    <section className={`py-16 sm:py-24 ${className}`}>
+    <section id={id} className={`py-20 sm:py-28 ${className}`}>
       <Container>{children}</Container>
     </section>
   );
